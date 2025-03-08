@@ -3,7 +3,6 @@ module github.com/casper9429-kth/git-emoji-terminal
 go 1.20
 
 require (
-	github.com/atotto/clipboard v0.1.4
 	github.com/charmbracelet/bubbles v0.16.1
 	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/charmbracelet/lipgloss v0.9.1

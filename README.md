@@ -1,9 +1,10 @@
 # Git Emoji Terminal Selector
 
-A lightweight and user-friendly terminal-based Git emoji selector for your commit messages.
+A terminal-based Git emoji selector that appears with Ctrl+E, making it easy to add emojis to your Git commits.
 
 ## Features
 
+- Quick access with Ctrl+E keyboard shortcut
 - Fast and responsive terminal UI
 - Fuzzy search for emojis
 - Keyboard navigation (arrow keys)
@@ -32,57 +33,28 @@ sudo pacman -S xdotool xterm fzf
 
 ## Installation
 
+1. Install the package:
 ```bash
-go install github.com/casper/gitemoji/cmd/daemon@latest
+go install github.com/casper9429-kth/git-emoji-terminal/cmd/daemon@latest
+```
+
+2. Add the keyboard shortcut to your `.bashrc`:
+```bash
+# Git emoji selector keybinding
+bind -x '"\C-e": "/home/casper/go/bin/gitemoji-daemon"'
+```
+
+3. Reload your shell configuration:
+```bash
+source ~/.bashrc
 ```
 
 ## Usage
 
-There are several ways to integrate this tool into your workflow:
-
-### 1. Direct Usage
-
-Simply run:
-```bash
-gitemoji-daemon
-```
-
-This will open the emoji picker. Use arrow keys to navigate, type to filter, and press Enter to select.
-The selected emoji will be copied to your clipboard.
-
-### 2. Shell Integration
-
-Add this to your `.bashrc` or `.zshrc`:
-
-```bash
-# Bind Ctrl+E to open the emoji picker
-bind '"\C-e": "gitemoji-daemon\n"'  # For Bash
-# bindkey '^E' 'gitemoji-daemon\n'   # For Zsh
-```
-
-Now you can press Ctrl+E anywhere in your terminal to open the emoji picker.
-
-### 3. Git Alias
-
-Add this to your `.gitconfig`:
-
-```ini
-[alias]
-    emoji = !gitemoji-daemon
-```
-
-Now you can use:
-```bash
-git emoji
-```
-
-## How It Works
-
-1. Run the command or use your configured shortcut
-2. A TUI (Terminal User Interface) appears with a list of Git emojis
-3. Type to filter the list or use arrow keys to navigate
-4. Press Enter to select an emoji (it's automatically copied to clipboard)
-5. Press Esc or Ctrl+C to cancel
+1. Press Ctrl+E anywhere in your terminal to open the emoji picker
+2. Use arrow keys to navigate or type to filter emojis
+3. Press Enter to select an emoji (it's automatically copied to your clipboard)
+4. Press Esc or Ctrl+C to cancel
 
 ## Available Emojis
 
@@ -106,32 +78,21 @@ git emoji
 - 🔀 (merge) - Merge
 - ⚙️ (config) - Configuration changes
 
-## Tips
+## Tips for Git Users
 
-1. For Git commits, select your emoji first, then type your commit message:
-   ```bash
-   git commit -m "✨ Add new feature"
-   ```
+1. Use the emoji at the start of your commit messages:
+```bash
+git commit -m "✨ Add new feature"
+```
 
-2. Use the search feature by typing part of the emoji name:
+2. Quick search examples:
    - Type "fix" to quickly find the 🐛 bug fix emoji
    - Type "feat" to find the ✨ feature emoji
+   - Type the emoji itself to find it directly
 
-3. The selected emoji is automatically copied to your clipboard, so you can immediately paste it anywhere
+## Contributing
 
-## Security Note
-
-Since this app uses X11 keyboard hooks to monitor your typing, it has access to all keyboard input across applications. The code is open source and doesn't collect any data, but you should always review such applications carefully before running them.
-
-## Customization
-
-You can modify the list of emojis by editing the `GitEmojis` slice in `gitemoji.go`.
-
-## Troubleshooting
-
-- **No emoji picker appears**: Make sure you have xterm and fzf installed
-- **Cannot grab keyboard**: You may need to run the daemon with elevated privileges
-- **Wrong characters detected**: The keycode mapping may need adjustment for your keyboard layout
+Feel free to contribute by opening issues or submitting pull requests.
 
 ## License
 

@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/casper9429-kth/git-emoji-terminal"
-	"github.com/atotto/clipboard"
+	gitemoji "github.com/casper9429-kth/git-emoji-terminal"
 )
 
 func main() {

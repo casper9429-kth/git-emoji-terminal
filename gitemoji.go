@@ -70,11 +70,13 @@ func initialModel() EmojiPickerModel {
 		items = append(items, Item{emoji: emoji})
 	}
 
-	// Setup the list
-	l := list.New(items, list.NewDefaultDelegate(), 0, 0)
+	// Setup the list with initial size
+	l := list.New(items, list.NewDefaultDelegate(), 20, 10)
 	l.Title = "Select Git Emoji"
 	l.SetShowFilter(true)
 	l.FilterInput.Placeholder = "Type to filter emojis..."
+	l.SetShowStatusBar(false)
+	l.SetFilteringEnabled(true)
 	l.Styles.Title = lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("#FFFFFF")).
@@ -134,13 +136,22 @@ func (m EmojiPickerModel) View() string {
 
 // RunPicker starts the emoji picker UI
 func RunPicker() (string, error) {
-	p := tea.NewProgram(initialModel())
+	p := tea.NewProgram(
+		initialModel(),
+		tea.WithAltScreen(),       // Use alternate screen buffer
+		tea.WithMouseCellMotion(), // Enable mouse support
+	)
+
 	m, err := p.Run()
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to run program: %v", err)
 	}
 
-	if m, ok := m.(EmojiPickerModel); ok {
+	if m, ok := m.(EmojiPickerModel); ok && m.selectedEmoji != "" {
+		// Try to copy to clipboard
+		if err := clipboard.WriteAll(m.selectedEmoji); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: Could not copy to clipboard: %v\n", err)
+		}
 		return m.selectedEmoji, nil
 	}
 	return "", nil
