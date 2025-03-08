@@ -1,4 +1,4 @@
-module github.com/casper/gitemoji
+module github.com/casper9429-kth/git-emoji-terminal
 
 go 1.20
 
