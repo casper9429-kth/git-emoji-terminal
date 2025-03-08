@@ -11,7 +11,7 @@ func main() {
 	// Show the emoji picker
 	emoji := gitemoji.ShowPicker()
 
-	// If an emoji was selected, copy it to clipboard and print it
+	// If an emoji was selected, print it
 	if emoji != "" {
 		fmt.Printf("Selected emoji: %s (copied to clipboard)\n", emoji)
 		os.Exit(0)
