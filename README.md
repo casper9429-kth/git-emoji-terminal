@@ -33,18 +33,29 @@ sudo pacman -S xdotool xterm fzf
 
 ## Installation
 
-1. Install the package:
+1. Clone the repository:
 ```bash
-go install github.com/casper9429-kth/git-emoji-terminal/cmd/daemon@latest
+git clone https://github.com/casper9429-kth/git-emoji-terminal.git
+cd git-emoji-terminal
 ```
 
-2. Add the keyboard shortcut to your `.bashrc`:
+2. Build the binary:
 ```bash
-# Git emoji selector keybinding
-bind -x '"\C-e": "/home/casper/go/bin/gitemoji-daemon"'
+go build -o git-emoji-selector ./cmd/daemon/main.go
 ```
 
-3. Reload your shell configuration:
+3. Add the keyboard shortcut to your `.bashrc`:
+```bash
+# Git emoji selector keybinding (adjust the path to where you cloned the repository)
+bind -x '"\C-e": "/path/to/git-emoji-terminal/git-emoji-selector"'
+```
+
+For example, if you cloned it to your home directory:
+```bash
+bind -x '"\C-e": "$HOME/git-emoji-terminal/git-emoji-selector"'
+```
+
+4. Reload your shell configuration:
 ```bash
 source ~/.bashrc
 ```
